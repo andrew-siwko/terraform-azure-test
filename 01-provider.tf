@@ -45,14 +45,14 @@ variable "ARM_CLIENT_SECRET" {
   type    = string
 }
 
-output "ARM_SUBSCRIPTION_ID" {
+output "ARM_SUBSCRIPTION_ID01" {
   value = var.ARM_SUBSCRIPTION_ID
 }
-output "ARM_TENANT_ID" {
+output "ARM_TENANT_ID02" {
   value = var.ARM_TENANT_ID
 }
 
-output "ARM_CLIENT_ID" {
+output "ARM_CLIENT_ID03" {
   value = var.ARM_CLIENT_ID
 }
 
