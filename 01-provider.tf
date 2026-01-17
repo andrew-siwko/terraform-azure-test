@@ -10,7 +10,7 @@ terraform {
       source  = "linode/linode"
     }
   }
-  # We want to store the Terraform state file in aws using an S3 bucket.
+  # We want to store the Terraform state file in azure using an storage account.
   backend "azurerm" {
       resource_group_name  = "tfstate"
       storage_account_name = "tfstateasiwko01"
@@ -29,32 +29,6 @@ provider "linode" {
   token = var.LINODE_API_KEY
 }
 
-variable "ARM_SUBSCRIPTION_ID" {
-  type    = string
-}
-
-variable "ARM_TENANT_ID" {
-  type    = string
-}
-
-variable "ARM_CLIENT_ID" {
-  type    = string
-}
-
-variable "ARM_CLIENT_SECRET" {
-  type    = string
-}
-
-output "ARM_SUBSCRIPTION_ID01" {
-  value = var.ARM_SUBSCRIPTION_ID
-}
-output "ARM_TENANT_ID02" {
-  value = var.ARM_TENANT_ID
-}
-
-output "ARM_CLIENT_ID03" {
-  value = var.ARM_CLIENT_ID
-}
 
 # resource "azurerm_resource_group" "state-demo-secure" {
 #   name     = "state-demo"
@@ -63,8 +37,4 @@ output "ARM_CLIENT_ID03" {
 
 provider "azurerm" {
   features {}
-  # subscription_id   = var.ARM_SUBSCRIPTION_ID
-  # tenant_id         = var.ARM_TENANT_ID
-  # client_id         = var.ARM_CLIENT_ID
-  # client_secret     = var.ARM_CLIENT_SECRET
 }
