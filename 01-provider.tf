@@ -29,11 +29,33 @@ provider "linode" {
   token = var.LINODE_API_KEY
 }
 
-provider "azurerm" {
-  features {}
+variable "ARM_SUBSCRIPTION_ID" {
+  type    = string
 }
+
+variable "ARM_TENANT_ID" {
+  type    = string
+}
+
+variable "ARM_CLIENT_ID" {
+  type    = string
+}
+
+variable "ARM_CLIENT_SECRET" {
+  type    = string
+}
+
 
 # resource "azurerm_resource_group" "state-demo-secure" {
 #   name     = "state-demo"
 #   location = "eastus"
 # }
+
+provider "azurerm" {
+  features {}
+
+  subscription_id   = var.ARM_SUBSCRIPTION_ID
+  tenant_id         = var.ARM_TENANT_ID
+  client_id         = var.ARM_CLIENT_ID
+  client_secret     = var.ARM_CLIENT_SECRET
+}
