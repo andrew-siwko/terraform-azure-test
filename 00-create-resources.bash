@@ -1,8 +1,9 @@
 #!/bin/bash
 
-RESOURCE_GROUP_NAME=tfstate
-STORAGE_ACCOUNT_NAME=tfstate-asiwko-01
-CONTAINER_NAME=tfstate
+export SUBSCRIPTION_ID="f0945efd-1694-4ea6-b8d1-e04395698a27"
+export RESOURCE_GROUP_NAME=tfstate
+export STORAGE_ACCOUNT_NAME=tfstateasiwko01
+export CONTAINER_NAME=tfstate
 
 # Create resource group
 az group create --name $RESOURCE_GROUP_NAME --location eastus
