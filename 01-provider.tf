@@ -13,7 +13,7 @@ terraform {
   # We want to store the Terraform state file in aws using an S3 bucket.
   backend "azurerm" {
       resource_group_name  = "tfstate"
-      storage_account_name = "tfstate-asiwko-01"
+      storage_account_name = "tfstateasiwko01"
       container_name       = "tfstate"
       key                  = "terraform.tfstate"
   }
