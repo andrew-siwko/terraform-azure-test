@@ -1,3 +1,6 @@
+# -------------------------
+# Resource Group
+# -------------------------
 resource "azurerm_resource_group" "rg" {
   name     = "rg-asiwko"
   location = "eastus"
@@ -24,10 +27,17 @@ resource "azurerm_subnet" "public_subnet" {
 }
 
 # -------------------------
-# Public IP
+# Public IPs (one per VM)
 # -------------------------
-resource "azurerm_public_ip" "pip" {
-  name                = "public-ip"
+resource "azurerm_public_ip" "pip_03" {
+  name                = "public-ip-03"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  allocation_method   = "Dynamic"
+}
+
+resource "azurerm_public_ip" "pip_04" {
+  name                = "public-ip-04"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Dynamic"
@@ -111,9 +121,9 @@ resource "azurerm_route_table" "public_rt" {
   resource_group_name = azurerm_resource_group.rg.name
 
   route {
-    name                   = "default-route"
-    address_prefix         = "0.0.0.0/0"
-    next_hop_type          = "Internet"
+    name           = "default-route"
+    address_prefix = "0.0.0.0/0"
+    next_hop_type  = "Internet"
   }
 }
 
@@ -130,7 +140,7 @@ resource "azurerm_subnet_network_security_group_association" "nsg_assoc" {
 }
 
 # -------------------------
-# Network Interface (NIC)
+# Network Interfaces (NICs)
 # -------------------------
 resource "azurerm_network_interface" "nic_03" {
   name                = "nic-03"
@@ -141,7 +151,7 @@ resource "azurerm_network_interface" "nic_03" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.public_subnet.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.pip.id
+    public_ip_address_id          = azurerm_public_ip.pip_03.id
   }
 }
 
@@ -154,8 +164,19 @@ resource "azurerm_network_interface" "nic_04" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.public_subnet.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.pip.id
+    public_ip_address_id          = azurerm_public_ip.pip_04.id
   }
+}
+
+# Attach NSG to NICs (AWS-style behavior)
+resource "azurerm_network_interface_security_group_association" "nic_03_assoc" {
+  network_interface_id      = azurerm_network_interface.nic_03.id
+  network_security_group_id = azurerm_network_security_group.public_access.id
+}
+
+resource "azurerm_network_interface_security_group_association" "nic_04_assoc" {
+  network_interface_id      = azurerm_network_interface.nic_04.id
+  network_security_group_id = azurerm_network_security_group.public_access.id
 }
 
 # -------------------------
@@ -163,6 +184,7 @@ resource "azurerm_network_interface" "nic_04" {
 # -------------------------
 resource "azurerm_linux_virtual_machine" "vm_03" {
   name                = "asiwko-vm-03"
+  computer_name       = "asiwko-vm-03"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   size                = "Standard_D2s_v5"
@@ -178,6 +200,12 @@ resource "azurerm_linux_virtual_machine" "vm_03" {
     public_key = file("/container_shared/ansible/id_ed25519.desktop.pub")
   }
 
+  os_disk {
+    name                 = "asiwko-vm-03-osdisk"
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+
   source_image_reference {
     publisher = "RedHat"
     offer     = "RHEL"
@@ -188,6 +216,7 @@ resource "azurerm_linux_virtual_machine" "vm_03" {
 
 resource "azurerm_linux_virtual_machine" "vm_04" {
   name                = "asiwko-vm-04"
+  computer_name       = "asiwko-vm-04"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   size                = "Standard_D2s_v5"
@@ -201,6 +230,12 @@ resource "azurerm_linux_virtual_machine" "vm_04" {
   admin_ssh_key {
     username   = "azureuser"
     public_key = file("/container_shared/ansible/id_ed25519.desktop.pub")
+  }
+
+  os_disk {
+    name                 = "asiwko-vm-04-osdisk"
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
   }
 
   source_image_reference {
