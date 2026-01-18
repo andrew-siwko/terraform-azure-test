@@ -190,7 +190,7 @@ resource "azurerm_linux_virtual_machine" "vm_03" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   # size                = "Standard_D2s_v5"
-  size                = "Standard_L4aos_v4"
+  size                = "Standard_L2aos_v4"
 
   admin_username = "azureuser"
 
@@ -223,7 +223,7 @@ resource "azurerm_linux_virtual_machine" "vm_04" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   # size                = "Standard_D2s_v5"
-  size                = "Standard_L4aos_v4"
+  size                = "Standard_L2aos_v4"
 
   admin_username = "azureuser"
 
