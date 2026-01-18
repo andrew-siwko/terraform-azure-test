@@ -217,35 +217,35 @@ resource "azurerm_linux_virtual_machine" "vm_03" {
   }
 }
 
-resource "azurerm_linux_virtual_machine" "vm_04" {
-  name                = "asiwko-vm-04"
-  computer_name       = "asiwko-vm-04"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-  # size                = "Standard_D2s_v5"
-  size                = "Standard_L2aos_v4"
+# resource "azurerm_linux_virtual_machine" "vm_04" {
+#   name                = "asiwko-vm-04"
+#   computer_name       = "asiwko-vm-04"
+#   resource_group_name = azurerm_resource_group.rg.name
+#   location            = azurerm_resource_group.rg.location
+#   # size                = "Standard_D2s_v5"
+#   size                = "Standard_L2aos_v4"
 
-  admin_username = "azureuser"
+#   admin_username = "azureuser"
 
-  network_interface_ids = [
-    azurerm_network_interface.nic_04.id,
-  ]
+#   network_interface_ids = [
+#     azurerm_network_interface.nic_04.id,
+#   ]
 
-  admin_ssh_key {
-    username   = "azureuser"
-    public_key = file("/container_shared/ansible/id_rsa.desktop.pub")
-  }
+#   admin_ssh_key {
+#     username   = "azureuser"
+#     public_key = file("/container_shared/ansible/id_rsa.desktop.pub")
+#   }
 
-  os_disk {
-    name                 = "asiwko-vm-04-osdisk"
-    caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
-  }
+#   os_disk {
+#     name                 = "asiwko-vm-04-osdisk"
+#     caching              = "ReadWrite"
+#     storage_account_type = "Standard_LRS"
+#   }
 
-  source_image_reference {
-    publisher = "RedHat"
-    offer     = "RHEL"
-    sku       = "97-gen2"
-    version   = "latest"
-  }
+#   source_image_reference {
+#     publisher = "RedHat"
+#     offer     = "RHEL"
+#     sku       = "97-gen2"
+#     version   = "latest"
+#   }
 }
