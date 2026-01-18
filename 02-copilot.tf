@@ -197,7 +197,7 @@ resource "azurerm_linux_virtual_machine" "vm_03" {
 
   admin_ssh_key {
     username   = "azureuser"
-    public_key = file("/container_shared/ansible/id_ed25519.desktop.pub")
+    public_key = file("/container_shared/ansible/id_rsa.desktop.pub")
   }
 
   os_disk {
