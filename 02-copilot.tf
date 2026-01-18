@@ -248,4 +248,4 @@ resource "azurerm_linux_virtual_machine" "vm_03" {
 #     sku       = "97-gen2"
 #     version   = "latest"
 #   }
-}
+# }
