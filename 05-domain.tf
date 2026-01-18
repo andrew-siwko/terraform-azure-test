@@ -3,9 +3,9 @@ resource "linode_domain" "siwko_org" {
     type = "master"
     domain = "siwko.org"
     soa_email = "asiwko@siwko.org"
-    refresh_sec = 300
-    retry_sec   = 300
-    ttl_sec     = 300
+    refresh_sec = 30
+    retry_sec   = 30
+    ttl_sec     = 30
 }
 
 # Records for the public IP addresses.
