@@ -29,8 +29,8 @@ resource "azurerm_subnet" "public_subnet" {
 # -------------------------
 # Public IPs (one per VM)
 # -------------------------
-resource "azurerm_public_ip" "pip_03" {
-  name                = "public-ip-03"
+resource "azurerm_public_ip" "pip_01" {
+  name                = "public-ip-01"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Static"
@@ -144,8 +144,8 @@ resource "azurerm_subnet_network_security_group_association" "nsg_assoc" {
 # -------------------------
 # Network Interfaces (NICs)
 # -------------------------
-resource "azurerm_network_interface" "nic_03" {
-  name                = "nic-03"
+resource "azurerm_network_interface" "nic_01" {
+  name                = "nic-01"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -153,7 +153,7 @@ resource "azurerm_network_interface" "nic_03" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.public_subnet.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.pip_03.id
+    public_ip_address_id          = azurerm_public_ip.pip_01.id
   }
 }
 
@@ -171,8 +171,8 @@ resource "azurerm_network_interface" "nic_04" {
 }
 
 # Attach NSG to NICs (AWS-style behavior)
-resource "azurerm_network_interface_security_group_association" "nic_03_assoc" {
-  network_interface_id      = azurerm_network_interface.nic_03.id
+resource "azurerm_network_interface_security_group_association" "nic_01_assoc" {
+  network_interface_id      = azurerm_network_interface.nic_01.id
   network_security_group_id = azurerm_network_security_group.public_access.id
 }
 
@@ -184,9 +184,9 @@ resource "azurerm_network_interface_security_group_association" "nic_04_assoc" {
 # -------------------------
 # Virtual Machines (EC2 Instances)
 # -------------------------
-resource "azurerm_linux_virtual_machine" "vm_03" {
-  name                = "asiwko-vm-03"
-  computer_name       = "asiwko-vm-03"
+resource "azurerm_linux_virtual_machine" "vm_01" {
+  name                = "asiwko-vm-01"
+  computer_name       = "asiwko-vm-01"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   # size                = "Standard_D2s_v5"
@@ -195,7 +195,7 @@ resource "azurerm_linux_virtual_machine" "vm_03" {
   admin_username = "azureuser"
 
   network_interface_ids = [
-    azurerm_network_interface.nic_03.id,
+    azurerm_network_interface.nic_01.id,
   ]
 
   admin_ssh_key {
@@ -204,7 +204,7 @@ resource "azurerm_linux_virtual_machine" "vm_03" {
   }
 
   os_disk {
-    name                 = "asiwko-vm-03-osdisk"
+    name                 = "asiwko-vm-01-osdisk"
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }

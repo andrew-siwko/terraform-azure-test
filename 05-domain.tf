@@ -9,12 +9,12 @@ resource "linode_domain" "siwko_org" {
 }
 
 # Records for the public IP addresses.
-resource "linode_domain_record" "az03_siwko_org" {
+resource "linode_domain_record" "az01_siwko_org" {
     domain_id = linode_domain.siwko_org.id
-    name = "az03"
+    name = "az01"
     record_type = "A"
     ttl_sec = 5
-    target = azurerm_linux_virtual_machine.vm_03.public_ip_address
+    target = azurerm_linux_virtual_machine.vm_01.public_ip_address
 }
 
 
