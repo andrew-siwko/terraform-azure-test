@@ -1,3 +1,6 @@
+# use this once to get the zone into the state file
+# terraform import linode_domain.siwko_org 1228113
+
 # This will update the dns records in my siwko.org domain for the new instances.
 resource "linode_domain" "siwko_org" {
     type = "master"
