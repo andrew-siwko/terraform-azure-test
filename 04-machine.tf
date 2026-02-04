@@ -26,15 +26,14 @@ resource "azurerm_linux_virtual_machine" "vm_01" {
   location            = azurerm_resource_group.rg.location
   size                = "Standard_L2aos_v4"
 
-  admin_username = "root"
+  admin_username = "azureuser"
 
   network_interface_ids = [
     azurerm_network_interface.nic_01.id,
   ]
 
-  # let's try root
   admin_ssh_key {
-    username   = "root"
+    username   = "azureuser"
     public_key = file("/container_shared/ansible/ansible_rsa.pub")
   }
 
