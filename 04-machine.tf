@@ -1,6 +1,3 @@
-# -------------------------
-# Network Interfaces (NICs)
-# -------------------------
 resource "azurerm_network_interface" "nic_01" {
   name                = "nic-01"
   location            = azurerm_resource_group.rg.location
@@ -22,9 +19,6 @@ resource "azurerm_network_interface_security_group_association" "nic_01_assoc" {
 }
 
 
-# -------------------------
-# Virtual Machines 
-# -------------------------
 resource "azurerm_linux_virtual_machine" "vm_01" {
   name                = "asiwko-vm-01"
   computer_name       = "asiwko-vm-01"
@@ -38,8 +32,9 @@ resource "azurerm_linux_virtual_machine" "vm_01" {
     azurerm_network_interface.nic_01.id,
   ]
 
+  # let's try root
   admin_ssh_key {
-    username   = "azureuser"
+    username   = "root"
     public_key = file("/container_shared/ansible/ansible_rsa.pub")
   }
 
