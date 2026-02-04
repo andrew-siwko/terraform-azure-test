@@ -1,6 +1,3 @@
-# -------------------------
-# Network Security Group (Security Group)
-# -------------------------
 resource "azurerm_network_security_group" "public_access" {
   name                = "allow_ssh_http_ping"
   location            = azurerm_resource_group.rg.location
@@ -79,9 +76,6 @@ resource "azurerm_network_security_group" "public_access" {
   }
 }
 
-# -------------------------
-# Route Table (Public Route)
-# -------------------------
 resource "azurerm_route_table" "public_rt" {
   name                = "public-route-table"
   location            = azurerm_resource_group.rg.location
