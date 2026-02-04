@@ -32,6 +32,9 @@ The second Jenkins job imports my DNS zone.  I run it only once after the plan i
 * Microsoft is less generous with cores and I realized from the start I could only afford one instance with Tomcat.
 * I settled on Standard_L2aos_v4 after searching using the cli.
 * Since AWS defined an admin user of ec2-user and Azure had an option for setting the admin user name, I set it to azureuser.  I don't know why I didn't try root, all the other providers use root.
+* Here's the answer: 
+  * Error: "admin_username" specified is not allowed, got "root", cannot match: "administrator, admin, user, user1, test, user2, test1, user3, admin1, 1, 123, a, actuser, adm, admin2, aspnet, backup, console, david, guest, john, owner, root, server, sql, support, support_388945a0, sys, test2, test3, user4, user5"
+  * I wonder who david and john are.
 * The Azure console was clear and easy to use.
   * Start: 2026-01-17
   * Functional: 2026-01-17
