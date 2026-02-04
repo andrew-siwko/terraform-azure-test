@@ -31,9 +31,3 @@ provider "linode" {
   token = var.LINODE_API_KEY
 }
 
-
-# resource "azurerm_resource_group" "state-demo-secure" {
-#   name     = "state-demo"
-#   location = "eastus"
-# }
-
