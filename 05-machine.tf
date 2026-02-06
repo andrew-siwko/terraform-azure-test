@@ -33,7 +33,7 @@ resource "azurerm_linux_virtual_machine" "vm_01" {
   ]
 
   admin_ssh_key {
-    username   = "azureuser"
+    username   = var.admin_username
     public_key = file("/container_shared/ansible/ansible_rsa.pub")
   }
 

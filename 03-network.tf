@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "rg" {
   name     = "rg-asiwko"
-  location = "eastus"
+  location = var.rg_location
 }
 
 resource "azurerm_virtual_network" "custom_vnet" {

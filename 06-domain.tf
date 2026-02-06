@@ -17,7 +17,7 @@ resource "linode_domain" "dns_zone" {
 
 # Records for the public IP addresses.
 resource "linode_domain_record" "az01_siwko_org" {
-  domain_id   = linode_domain.siwko_org.id
+  domain_id   = linode_domain.dns_zone.id
   name        = "az01"
   record_type = "A"
   ttl_sec     = 5
