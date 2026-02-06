@@ -24,9 +24,9 @@ resource "azurerm_linux_virtual_machine" "vm_01" {
   computer_name       = "asiwko-vm-01"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  size                = "Standard_L2aos_v4"
+  size                = var.instance_type
 
-  admin_username = "azureuser"
+  admin_username = 
 
   network_interface_ids = [
     azurerm_network_interface.nic_01.id,
