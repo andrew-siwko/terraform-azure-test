@@ -14,15 +14,24 @@ I tried to build the same basic structures in each of the cloud environments.  E
 * Step 5 - [IBM](https://github.com/andrew-siwko/terraform-ibm-test)
 
 ## Build Environment
-I stood up my own Jenkins server and built two freestyle jobs to support the Terraform infrastructure builds.  The main job calls 
+I stood up my own Jenkins server and built a freestyle job to support the Terraform infrastructure builds.
 * terraform init
+* _some bash to import the domen (see below)_
 * terraform plan
 * terraform apply -auto-approve
 * terraform output (This is piped to mail so I get an e-mail with the outputs.)
 
 Yes, I know plan and apply should be separate and intentional.  In this case I found defects in plan which halted the job before apply.  That was useful.  I also commented out apply until plan was pretty close to working.<br/>
-The first Jenkins job contains environment variables with authentication information for the cloud environment and [Linode](https://www.linode.com/) (my registrar).<br/>
-The second Jenkins job imports my DNS zone.  I run it only once after the plan is complete.  After that Terraform happily manages records in my existing zone.
+The Jenkins job contains environment variables with authentication information for the cloud environment and [Linode](https://www.linode.com/) (my registrar).<br/>
+I did have a second job to import the domain zone but switched to a conditional in a script.  The code checks to see whether my zone record has been imported.  If not, the zone creation will fail.
+```bash
+if ! terraform state list | grep -q "linode_domain.dns_zone"; then
+  echo "Resource not in state. Importing..."
+  terraform import linode_domain.dns_zone 3417841
+else
+  echo "Domain already managed. Skipping import."
+fi
+```
 
 ## Observations
 * Azure was the second cloud provider I provisioned with Terraform.
