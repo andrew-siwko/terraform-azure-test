@@ -16,7 +16,7 @@ I tried to build the same basic structures in each of the cloud environments.  E
 ## Build Environment
 I stood up my own Jenkins server and built a freestyle job to support the Terraform infrastructure builds.
 * terraform init
-* _some bash to import the domen (see below)_
+* _some bash to import the domain (see below)_
 * terraform plan
 * terraform apply -auto-approve
 * terraform output (This is piped to mail so I get an e-mail with the outputs.)
