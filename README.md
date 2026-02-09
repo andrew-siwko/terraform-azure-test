@@ -50,5 +50,6 @@ fi
   * Number of Jenkins builds to success: 49
   * Hurdles: 
     * Free resource constraints
+* My free trial ended 2026-02-08 and all sevices were suspended.
 
 
