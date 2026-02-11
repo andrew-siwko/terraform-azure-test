@@ -12,6 +12,7 @@ I tried to build the same basic structures in each of the cloud environments.  E
 * Step 3 - [GCP](https://github.com/andrew-siwko/terraform-gcp-test)
 * Step 4 - [Linode](https://github.com/andrew-siwko/terraform-linode-test)
 * Step 5 - [IBM](https://github.com/andrew-siwko/terraform-ibm-test)
+* Step 6 - [Oracle OCI](https://github.com/andrew-siwko/terraform-oracle-test) 
 
 ## Build Environment
 I stood up my own Jenkins server and built a freestyle job to support the Terraform infrastructure builds.
