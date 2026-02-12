@@ -1,6 +1,6 @@
 # Andrew's Multicloud Terraform Experiment
 ## Overview
-This experiment uses Terraform to create a single virtual machine on Microsoft's Azure.  It is part of a series of experiments begun in early 2026.  I have structured the Terraform files with sequence numbers to show the logical flow of resource creation.  Roughly the sequence is:
+This experiment uses Terraform to create a single virtual machine on [Microsoft's Azure](https://portal.azure.com/).  It is part of a series of experiments begun in early 2026.  I have structured the Terraform files with sequence numbers to show the logical flow of resource creation.  Roughly the sequence is:
 * 00-create-resources.bash
   * This file contains shell commands and notes used to manipulate the cloud environment from the CLI.  My approach has been to make things work and then Terraform them.  Thus you may see commands to discover the instance types which I used to hard code server creation.  These were later replaced with lookups inside terraform.  the commands and notes may still be useful.
 * 01-variables.auto.tfvars, 01-variables.tf
@@ -19,8 +19,7 @@ This experiment uses Terraform to create a single virtual machine on Microsoft's
   * This file contains outputs from Terraform state at the end of the process.  During development, I leaned on this heavily to discover internal states and key names.  Once finished, I leave the public IP of the instance in the output for validation.
 
 Except for Linode, with whom I have an existing paid relationship, all other instances were provisioned using a free trial.
-Once Terraform provisioning is complete, I use Ansible to configure and install Tomcat, set an apache proxy and install a sample application.  [More on that later...](https://github.com/andrew-siwko/ansible-multi-cloud-tomcat-hello)<br/>
-It all starts with the [Cloud Console](https://portal.azure.com/).
+Once Terraform provisioning is complete, I use Ansible to configure and install Tomcat, set an apache proxy and install a sample application.  [More on that later...](https://github.com/andrew-siwko/ansible-multi-cloud-tomcat-hello)
 
 ## Multicloud
 I tried to build the same basic structures in each of the cloud environments.  Each one starts with providers (and a backend), lays out the network and security, creates the VM and then registers the public IP in my DNS.  There is some variability which has been interesting to study.  The Terraform state file is stored on each provider.
