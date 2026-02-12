@@ -1,8 +1,25 @@
 # Andrew's Multicloud Terraform Experiment
-## Goal
-The goal of this repo is to create a usable VM in the Microsoft Azure cloud.<br/>
-Everything here was done using the Azure free trial.<br/>
-After this step completed I used Ansible to configure and install Tomcat and run a sample application.  [More on that later...](https://github.com/andrew-siwko/ansible-multi-cloud-tomcat-hello)<br/>
+## Overview
+This experiment uses Terraform to create a single virtual machine on Microsoft's Azure.  It is part of a series of experiments begun in early 2026.  I have structured the Terraform files with sequence numbers to show the logical flow of resource creation.  Roughly the sequence is:
+* 00-create-resources.bash
+  * This file contains shell commands and notes used to manipulate the clound environment from the CLI.  My approach has been to make things work and then Terraform them.  Thus you may see commands to discover the instance types which I used to hard code server creation.  These were later replaced with lookups inside terraform.  the commands and notes may still be useful.
+* 01-variables.auto.tfvars, 01-variables.tf
+  * The two variable files contain parameters factored out of the main code and their definitions.  As the configuration code matured and I added more cloud providers, it became clear that certain parameters could be pulled up for ease of use.
+* 02-providers.tf
+  * This file contains the top level terraform{} block which contains required providers, by necessity, the backend definition and connects providers to required variables.  i would hav eliked to split the backend into a separate file but there may only be one terraform{} block and the rest of the world uses providers.  In these projects I have stored the tfstate file on the clound provider rather than defining local storage.  I found this proceess to be difficult and educational.
+* 03-network.tf
+  * This file specifies network elements.  In a basic, single VM case, it is not generally needed.  As soon as you want to control traffic with a firewall or security group, the network definition is required to attach the rules.
+* 04-security-group.tf, 04-firewall.tf, 04-security-list.tf
+  * This file defines how network traffic flows in and out of the network to your instance.
+* 05-ec2.tf, 05-machine.tf, 05-droplet.tf, 05-servers.tf
+  * This file contains the virtual machine definition and mapping to other resources.
+* 06-domain.tf
+  * This small file contains the DNZ zone resource for a Linode zone and an A record for the IP address of the virtual machine.  The zone record is imported from the existing Linode zone and is marked as "prevent_destroy" to avoind domain deletion.
+* 07-outputs.tf
+  * This file contains outputs from Terraform state at the end of the process.  During development, I leaned on this heavily to discover internal states and key names.  Once finished, I leave the public IP of the instance in the output for validation.
+
+Except for Linode, wich whom I have an existing paid relationship, all other instances were provisioned using a free trial.
+Once Terraform provisioning is complete, I use Ansible to configure and install Tomcat, set an apache proxy and install a sample application.  [More on that later...](https://github.com/andrew-siwko/ansible-multi-cloud-tomcat-hello)<br/>
 It all starts with the [Cloud Console](https://portal.azure.com/).
 
 ## Multicloud
