@@ -34,7 +34,7 @@ variable "domain_soa_email" {
   default = "asiwko@siwko.org"
 }
 variable "rg_location" {
-  description = "The location of rht resource group."
+  description = "The location of the resource group."
   type    = string
   default = "eastus"
 }
