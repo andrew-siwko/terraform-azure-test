@@ -36,7 +36,7 @@ I stood up my own Jenkins server and built a freestyle job to support the Terraf
 * terraform init
 * terraform state list | grep -q "linode_domain.dns_zone"
   * _If the zone is not found, import it_
-  * Terraform import linode_domain.dns_zone 3417841
+  * terraform import linode_domain.dns_zone 3417841
 * terraform plan
 * terraform apply -auto-approve
 * terraform output (This is piped to mail so I get an e-mail with the outputs.)
