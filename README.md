@@ -31,8 +31,9 @@ I tried to build the same basic structures in each of the cloud environments.  E
 * Step 3 - [GCP](https://github.com/andrew-siwko/terraform-gcp-test)
 * Step 4 - [Linode](https://github.com/andrew-siwko/terraform-linode-test)
 * Step 5 - [IBM](https://github.com/andrew-siwko/terraform-ibm-test)
-* Step 6 - [Oracle OCI](https://github.com/andrew-siwko/terraform-oracle-test) 
+* Step 6 - [Oracle OCI](https://github.com/andrew-siwko/terraform-oracle-test)
 * Step 7 - [Digital Ocean](https://github.com/andrew-siwko/terraform-digital-ocean-test)
+* Step 8 - [Equinix](https://github.com/andrew-siwko/terraform-equinix-test)
 
 ## Build Environment
 I stood up my own Jenkins server and built a freestyle job to support the Terraform infrastructure builds.  Jenkins polls this GitHubrepo and when changes are detected, starts a job whic performs the following steps:
