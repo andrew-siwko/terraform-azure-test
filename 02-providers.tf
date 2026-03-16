@@ -10,13 +10,18 @@ terraform {
       source  = "linode/linode"
     }
   }
-  # We want to store the Terraform state file in azure using an storage account.
-  backend "azurerm" {
-      resource_group_name  = "tfstate"
-      storage_account_name = "tfstateasiwko01"
-      container_name       = "tfstate"
-      key                  = "terraform.tfstate"
+   backend "local" {
+    path = "/container_shared/tfstate/aws.tfstate"
   }
+
+  # This project started with the state stored in the provider's oject storage.  
+  # I moved it to local storage as providers charge for object storage and there was no benefit once the exercise was complete.
+  # backend "azurerm" {
+  #     resource_group_name  = "tfstate"
+  #     storage_account_name = "tfstateasiwko01"
+  #     container_name       = "tfstate"
+  #     key                  = "terraform.tfstate"
+  # }
 }
 
 provider "azurerm" {
