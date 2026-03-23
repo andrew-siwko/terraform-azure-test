@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    # We will be working with AWS and so will need the AWS provider
+    # We will be working with Azure and so will need the Azure provider
     azurerm = {
       source  = "hashicorp/azurerm"
       version = "~>3.0"
