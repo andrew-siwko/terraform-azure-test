@@ -3,7 +3,6 @@ terraform {
     # We will be working with Azure and so will need the Azure provider
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~>3.0"
     }
     # in order to update DNS on linode, we'll need the linode provider.
     linode = {
